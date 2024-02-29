@@ -1,9 +1,8 @@
 import React from "react";
-import LoginScreen from "./src/screens/login/login";
-import HomeScreen from "./src/screens/home/home";
+import Routes from "./src/routes";
 
 
 const App = () => {
-  return <LoginScreen/>
+  return <Routes/>
 }
 export default App

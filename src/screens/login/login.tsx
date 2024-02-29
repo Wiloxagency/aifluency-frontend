@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   KeyboardAvoidingView,
@@ -6,11 +6,29 @@ import {
   TouchableOpacity,
   Text,
   Image,
+  Alert,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { style } from "./style";
 
 export default function LoginScreen() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogin = () => {
+    // Adicione lógica de validação de email e senha aqui
+    const emailTest = "kelvin@gmail.com"; // Defina um email temporário para teste
+    const passwordTest = "123"; // Defina uma senha temporária para teste
+
+    if (email === emailTest && password === passwordTest) {
+      // Simulação de autenticação bem-sucedida
+      Alert.alert("Login bem-sucedido", "Você está logado!");
+    } else {
+      setError("Email ou senha inválidos.");
+    }
+  };
+
   return (
     <LinearGradient
       colors={["#B0D5EF", "#FFE0E0"]}
@@ -23,26 +41,30 @@ export default function LoginScreen() {
       </View>
       <View style={style.container}>
         <Text style={style.textContainer}>Sign in to continue</Text>
-        <View>
-          <Text>Email</Text>
+
+        <View style={style.input}>
+          <Text style={style.label}>Email</Text>
           <TextInput
-            style={style.input}
-            placeholder="Email"
+            style={style.inputText}
+            placeholder="friend@studio.com"
             autoCorrect={false}
-            onChangeText={() => {}}
+            onChangeText={(text) => setEmail(text)}
           />
         </View>
-        <View>
-          <Text>Senha</Text>
+        <View style={style.input}>
+          <Text style={style.label}>Senha</Text>
           <TextInput
-            style={style.input}
-            placeholder="Senha"
+            style={style.inputText}
+            placeholder="********"
             autoCorrect={false}
-            onChangeText={() => {}}
+            secureTextEntry
+            onChangeText={(text) => setPassword(text)}
           />
         </View>
 
-        <TouchableOpacity style={style.btnSubmit}>
+        {error ? <Text style={style.errorText}>{error}</Text> : null}
+
+        <TouchableOpacity style={style.btnSubmit} onPress={handleLogin}>
           <Text style={style.submitText}>Sign in</Text>
         </TouchableOpacity>
 

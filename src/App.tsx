@@ -1,4 +1,4 @@
-import { React} from "react";
+import React from "react";
 import LoginScreen from "./screens/login/login";
 import HomeScreen from "./screens/home/home";
 

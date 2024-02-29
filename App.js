@@ -4,6 +4,6 @@ import HomeScreen from "./screens/home/home";
 
 
 const App = () => {
-  return <HomeScreen/>
+  return <LoginScreen/>
 }
 export default App

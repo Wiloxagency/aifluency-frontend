@@ -9,23 +9,38 @@ import {
   Alert,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import axios from 'axios';
 import { style } from "./style";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [token, setToken] = useState(null);
 
-  const handleLogin = () => {
-    // Adicione lógica de validação de email e senha aqui
-    const emailTest = "kelvin@gmail.com"; // Defina um email temporário para teste
-    const passwordTest = "123"; // Defina uma senha temporária para teste
+  const handleLogin = async () => {
+    try {
+      console.log("Enviando requisição de login...");
+      const response = await axios.post('http://192.168.0.101:5000/login', {
+        email: email,
+        password: password,
+      });
 
-    if (email === emailTest && password === passwordTest) {
-      // Simulação de autenticação bem-sucedida
+      console.log("Resposta do servidor:", response.data);
+
+      const { token, user } = response.data;
+
+      setToken(token);
+
       Alert.alert("Login bem-sucedido", "Você está logado!");
-    } else {
-      setError("Email ou senha inválidos.");
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+
+      if (error.response && error.response.data) {
+        setError(error.response.data.message);
+      } else {
+        setError("Erro na requisição. Tente novamente mais tarde.");
+      }
     }
   };
 
